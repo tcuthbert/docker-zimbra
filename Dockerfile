@@ -1,6 +1,6 @@
 FROM ubuntu:trusty
 
-MAINTAINER Tindaro Tornabene <tindaro.tornabene@gmail.com>
+MAINTAINER Thomas Cuthbert <tcuthbert90@gmail.com>
 
 RUN apt-get -y update
 RUN apt-get -y install sudo wget tar curl
@@ -10,14 +10,10 @@ RUN mkdir /tmp/zcs
 WORKDIR /tmp/zcs
 
 ENV OS UBUNTU14_64
-#ENV OS UBUNTU12_64
 
 ENV ZIMBRA zcs-8.0.8_GA_6184.UBUNTU14_64.20140925165809
-#ENV ZIMBRA zcs-8.0.7_GA_6021.UBUNTU12_64.20140408123908
 
 RUN wget http://files2.zimbra.com/downloads/8.0.8_GA/$ZIMBRA.tgz
-#RUN wget http://files2.zimbra.com/downloads/8.0.7_GA/$ZIMBRA.tgz
-#RUN wget  http://10.10.130.35/$ZIMBRA.tgz
 
 
 WORKDIR /tmp/zcs
@@ -25,12 +21,8 @@ RUN tar xzvf $ZIMBRA.tgz
 RUN mv $ZIMBRA zcs-install
 
 
-
 RUN apt-get -y install openssh-server &&  mkdir /var/run/sshd
 RUN apt-get -y install  perl sysstat  hostname libidn11 libpcre3 libexpat1 libgmp3-dev patch pax sqlite3 libaio1 unzip  netcat-openbsd inetutils-ping net-tools 
-
-#install ubuntu 12.04
-#RUN apt-get -y install libperl5.14 libgmp3c2
 
 
 #install ubuntu 14.04
@@ -45,7 +37,6 @@ ADD config.defaults /tmp/zcs/config.defaults
 
 
 ADD utilfunc8.0.8.sh /tmp/zcs/utilfunc.sh
-#ADD utilfunc8.0.7.sh /tmp/zcs/utilfunc.sh
 
 RUN cp /tmp/zcs/utilfunc.sh /tmp/zcs/zcs-install/util/utilfunc.sh
 
